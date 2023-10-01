@@ -1,0 +1,15 @@
+/*
+This file is for handling imports and
+dictating specificity, nothing else.
+reset - strips default browser styles
+token - standardizes design pattern key-value pairs
+utility - reused classes that perform a specific design pattern
+*/
+@layer reset, token, utility;
+@import "./module/accessibility.css" layer(utility);
+@import "./module/borderRadius.css" layer(utility);
+@import "./module/color.css" layer(utility);
+@import "./module/default.css" layer(reset);
+@import "./module/grid.css" layer(utility);
+@import "./module/space.css" layer(utility);
+@import "./module/type.css" layer(utility);

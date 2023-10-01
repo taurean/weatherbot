@@ -1,0 +1,7 @@
+:root {
+  --radii-sharp: 0px;
+  --radii-chip: 4px;
+  --radii-pill: 5000px;
+  --radii-default: 10px;
+  --radii-circle: 50%;
+}
