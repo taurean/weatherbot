@@ -74,7 +74,7 @@ export async function getWeather(
       console.log(apiResult.hourly.temperature_2m[0]);
       console.log(apiResult.daily.temperature_2m_max[0]);
       console.log(apiResult.daily.temperature_2m_min[0]);
-      console.log(apiResult.hourly.weathercode[0]);
+      console.log(`The weather code is ${apiResult.hourly.weathercode[0]}`);
       return apiResult;
     }
     if (response.status === 404 || response.status === 500) {
