@@ -45,9 +45,6 @@ export async function getLocation(
     );
     if (response.ok) {
       const results = await response.json();
-      console.log(results.results[0].name);
-      console.log(results.results[0].latitude);
-      console.log(results.results[0].longitude);
       return { results };
     }
     if (response.status == 404 || response.status == 500) {
@@ -70,11 +67,6 @@ export async function getWeather(
     );
     if (response.ok) {
       const apiResult = await response.json();
-      console.log(apiResult);
-      console.log(apiResult.hourly.temperature_2m[0]);
-      console.log(apiResult.daily.temperature_2m_max[0]);
-      console.log(apiResult.daily.temperature_2m_min[0]);
-      console.log(`The weather code is ${apiResult.hourly.weathercode[0]}`);
       return apiResult;
     }
     if (response.status === 404 || response.status === 500) {

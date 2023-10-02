@@ -1,7 +1,19 @@
-import { WiCloudyGusts } from "react-icons/wi";
 import { RiTimeFill } from "react-icons/ri";
 import { RiArrowRightLine } from "react-icons/ri";
 import styles from "./WeatherCard.module.css";
+import { WiDaySunny } from "react-icons/wi";
+import { WiDayCloudy } from "react-icons/wi";
+import { WiDaySunnyOvercast } from "react-icons/wi";
+import { WiFog } from "react-icons/wi";
+import { WiSprinkle } from "react-icons/wi";
+import { WiRainMix } from "react-icons/wi";
+import { WiRain } from "react-icons/wi";
+import { WiSnow } from "react-icons/wi";
+import { WiSnowWind } from "react-icons/wi";
+import { WiShowers } from "react-icons/wi";
+import { WiSleet } from "react-icons/wi";
+import { WiThunderstorm } from "react-icons/wi";
+import { WiHail } from "react-icons/wi";
 
 interface WeatherCardProps {
   locationName: string;
@@ -12,101 +24,157 @@ interface WeatherCardProps {
   prefersFehrenheit?: boolean;
 }
 
-function weatherCodeToString(code: number) {
+function weatherCodeFormatter(code: number) {
   switch (code) {
     case 0:
-      return "clear sky";
+      return {
+        classNameValue: `${styles.cardClearSky}`,
+        icon: <WiDaySunny />,
+        description: `clear sky`,
+      };
     case 1:
-      return "mainly clear";
+      return {
+        classNameValue: `${styles.cardClearSky}`,
+        icon: <WiDaySunny />,
+        description: `mainly clear`,
+      };
     case 2:
-      return "partly cloudy";
+      return {
+        classNameValue: `${styles.cardCloudy}`,
+        icon: <WiDayCloudy />,
+        description: `partly cloudy`,
+      };
     case 3:
-      return "overcast";
+      return {
+        classNameValue: `${styles.cardCloudy}`,
+        icon: <WiDaySunnyOvercast />,
+        description: `overcast`,
+      };
     case 45:
     case 48:
-      return "fog";
+      return {
+        classNameValue: `${styles.cardCloudy}`,
+        icon: <WiFog />,
+        description: `fog`,
+      };
     case 51:
-      return "light drizzle";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiSprinkle />,
+        description: `light drizzle`,
+      };
     case 53:
     case 55:
-      return "moderate drizzle";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiSprinkle />,
+        description: `moderate drizzle`,
+      };
     case 56:
     case 57:
-      return "freezing drizzle";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiSprinkle />,
+        description: `freezing drizzle`,
+      };
     case 61:
-      return "slight rain";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiRainMix />,
+        description: `slight rain`,
+      };
     case 63:
-      return "rain";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiRain />,
+        description: `rain`,
+      };
     case 65:
-      return "heavy rain";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiRain />,
+        description: `heavy rain`,
+      };
     case 66:
     case 67:
-      return "freezing rain";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiRain />,
+        description: `freezing rain`,
+      };
     case 71:
-      return "light snow";
+      return {
+        classNameValue: `${styles.cardSnow}`,
+        icon: <WiSnow />,
+        description: `light snow`,
+      };
     case 73:
-      return "snow";
+      return {
+        classNameValue: `${styles.cardSnow}`,
+        icon: <WiSnow />,
+        description: `snow`,
+      };
     case 75:
     case 77:
-      return "heavy snow";
+      return {
+        classNameValue: `${styles.cardSnow}`,
+        icon: <WiSnowWind />,
+        description: `heavy snow`,
+      };
     case 80:
-      return "slight rain showers";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiShowers />,
+        description: `slight rain showers`,
+      };
     case 81:
-      return "rain showers";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiShowers />,
+        description: `rain showers`,
+      };
     case 82:
-      return "violent rain showers";
+      return {
+        classNameValue: `${styles.cardRain}`,
+        icon: <WiRainMix />,
+        description: `violent rain showers`,
+      };
     case 85:
-      return "snow showers";
+      return {
+        classNameValue: `${styles.cardSnow}`,
+        icon: <WiRainMix />,
+        description: `snow showers`,
+      };
     case 86:
-      return "heavy snow showers";
+      return {
+        classNameValue: `${styles.cardSnow}`,
+        icon: <WiSleet />,
+        description: `heavy snow showers`,
+      };
     case 95:
-      return "thunderstorm";
+      return {
+        classNameValue: `${styles.cardThunderstorm}`,
+        icon: <WiThunderstorm />,
+        description: `thunderstorm`,
+      };
     case 96:
-      return "thunderstorm with light hail";
+      return {
+        classNameValue: `${styles.cardThunderstorm}`,
+        icon: <WiHail />,
+        description: `thunderstorm with light hail`,
+      };
     case 99:
-      return "thunderstorm with heavy hail";
+      return {
+        classNameValue: `${styles.cardThunderstorm}`,
+        icon: <WiHail />,
+        description: `thunderstorm with heavy hail`,
+      };
     default:
-      return "unknown";
-  }
-}
-
-function weatherConditionStyle(code: number) {
-  switch (code) {
-    case 0:
-    case 1:
-      return `${styles.cardClearSky}`;
-    case 2:
-    case 3:
-    case 45:
-    case 48:
-      return `${styles.cardCloudy}`;
-    case 51:
-    case 53:
-    case 55:
-    case 56:
-    case 57:
-    case 61:
-    case 63:
-    case 65:
-    case 66:
-    case 67:
-    case 80:
-    case 81:
-    case 82:
-      return `${styles.cardRain}`;
-    case 71:
-    case 73:
-    case 75:
-    case 77:
-    case 85:
-    case 86:
-      return `${styles.cardSnow}`;
-    case 95:
-    case 96:
-    case 99:
-      return `${styles.cardThunderstorm}`;
-    default:
-      return "";
+      return {
+        classNameValue: ``,
+        icon: ``,
+        description: ``,
+      };
   }
 }
 
@@ -118,6 +186,10 @@ export function WeatherCard(prop: WeatherCardProps) {
   let tempCurrent = prop.tempCurrentCelsius;
   let tempHigh = prop.tempHighCelsius;
   let tempLow = prop.tempLowCelsius;
+  const conditionDescription = weatherCodeFormatter(prop.condition).description;
+  const conditionClassName =
+    weatherCodeFormatter(prop.condition).classNameValue || "";
+  const conditionIconName = weatherCodeFormatter(prop.condition).icon;
 
   if (prop.prefersFehrenheit == true) {
     tempCurrent = cToF(tempCurrent);
@@ -127,20 +199,14 @@ export function WeatherCard(prop: WeatherCardProps) {
 
   return (
     <>
-      <div
-        className={`${styles.card} ${
-          weatherConditionStyle(prop.condition) || ""
-        }`}
-      >
+      <div className={`${styles.card} ${conditionClassName}`}>
         <h2 className={styles.cardTitle}>{prop.locationName}</h2>
         <div className={styles.cardIconWrapper}>
-          <div className={styles.icon}>
-            <WiCloudyGusts />
-          </div>
+          <div className={styles.icon}>{conditionIconName}</div>
         </div>
         <div className={styles.cardTempCurrent}>{tempCurrent}</div>
         <div className={styles.cardCondition}>
-          {weatherCodeToString(prop.condition)}{" "}
+          {conditionDescription}{" "}
           <span visually-hidden="true">degrees fehrenheit</span>
         </div>
         <footer className={styles.cardFoot}>

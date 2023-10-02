@@ -1,5 +1,4 @@
 # Weatherbot
-
 ## Requirements
 
 - interface is list of weather cards

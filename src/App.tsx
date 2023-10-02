@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { LocationSearch } from "./component/locationSearch/LocationSearch";
 import "./App.css";
+
 import { WeatherCard } from "./component/WeatherCard/WeatherCard";
-import { SettingsModal } from "./component/SettingsModal/SettingsModal";
 
 import {
   getWeather,
@@ -11,9 +10,27 @@ import {
   LocationReponse,
 } from "./services/WeatherService";
 
-function App() {
+function useWeather(location: LocationReponse | null) {
   const [weatherData, setWeatherData] = useState<WeatherResponse | null>(null);
 
+  useEffect(() => {
+    const fetchWeather = async () => {
+      if (location) {
+        const latitude = location.results.results[0].latitude;
+        const longitude = location.results.results[0].longitude;
+        const data = await getWeather(latitude, longitude);
+        if (!("error" in data)) {
+          setWeatherData(data);
+        }
+      }
+    };
+    fetchWeather();
+  }, [location]);
+
+  return weatherData;
+}
+
+function App() {
   const [location, setLocationName] = useState<LocationReponse | null>(null);
 
   useEffect(() => {
@@ -27,28 +44,14 @@ function App() {
     fetchLocationData();
   }, []);
 
-  useEffect(() => {
-    const fetchWeather = async () => {
-      if (location) {
-        const latitude = location.results.results[0].latitude; // provided latitude
-        const longitude = location.results.results[0].longitude; // provided longitude
-        const data = await getWeather(latitude, longitude);
-        if (!("error" in data)) {
-          setWeatherData(data);
-        }
-      }
-    };
-    fetchWeather();
-  }, [location]);
+  const weatherData = useWeather(location);
 
   return (
     <>
       <header className="rootHeading">
         <h1 className="rootHeadingTitle">Weatherbot</h1>
-        <SettingsModal />
       </header>
       <main className="u-container">
-        {/* <LocationSearch></LocationSearch> */}
         <section className="u-grid">
           {weatherData && location && (
             <WeatherCard
