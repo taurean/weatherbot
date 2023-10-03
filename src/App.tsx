@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
+import { FToggle } from "./component/FToggle/FToggle";
 import { WeatherCard } from "./component/WeatherCard/WeatherCard";
 
 import {
@@ -35,7 +36,7 @@ function App() {
 
   useEffect(() => {
     const fetchLocationData = async () => {
-      const searchParam = "vallejo";
+      const searchParam = "barbados";
       const returnedData = await getLocation(searchParam);
       if (!("error" in returnedData)) {
         setLocationName(returnedData);
@@ -50,6 +51,7 @@ function App() {
     <>
       <header className="rootHeading">
         <h1 className="rootHeadingTitle">Weatherbot</h1>
+        <FToggle />
       </header>
       <main className="u-container">
         <section className="u-grid">
@@ -60,7 +62,7 @@ function App() {
               tempHighCelsius={weatherData.daily.temperature_2m_max[0]}
               tempLowCelsius={weatherData.daily.temperature_2m_min[0]}
               condition={weatherData.hourly.weathercode[0]}
-              prefersFehrenheit={true}
+              prefersFehrenheit={false}
             />
           )}
         </section>

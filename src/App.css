@@ -13,6 +13,10 @@ body {
 .rootHeading {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  max-width: var(--grid-max-width);
+  padding-inline: var(--grid-gutter);
+  margin: 0 auto;
 }
 
 .rootHeadingTitle {

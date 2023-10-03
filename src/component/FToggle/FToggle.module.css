@@ -1,0 +1,27 @@
+.radioGroup {
+  display: inline-flex;
+  align-items: center;
+  /* outline: 1px solid red; */
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--radii-default);
+  cursor: pointer;
+
+  & + & {
+    margin-left: var(--space-3xs);
+  }
+}
+
+.label:has([aria-checked="true"]) {
+  background-color: var(--hue-slate-200);
+
+  @media (prefers-color-scheme: dark) {
+    & {
+      background-color: var(--hue-slate-800);
+    }
+  }
+}
