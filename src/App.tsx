@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     const fetchLocationData = async () => {
-      const searchParam = "barbados";
+      const searchParam = "sao paulo";
       const returnedData = await getLocation(searchParam);
       if (!("error" in returnedData)) {
         setLocationName(returnedData);
@@ -46,6 +46,8 @@ function App() {
   }, []);
 
   const weatherData = useWeather(location);
+
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <>
@@ -63,6 +65,8 @@ function App() {
               tempLowCelsius={weatherData.daily.temperature_2m_min[0]}
               condition={weatherData.hourly.weathercode[0]}
               prefersFehrenheit={false}
+              isExpanded={isExpanded}
+              setIsExpanded={setIsExpanded}
             />
           )}
         </section>

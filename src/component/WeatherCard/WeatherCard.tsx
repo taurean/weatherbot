@@ -1,5 +1,6 @@
 import { RiTimeFill } from "react-icons/ri";
 import { RiArrowRightLine } from "react-icons/ri";
+import { RiArrowLeftLine } from "react-icons/ri";
 import styles from "./WeatherCard.module.css";
 import { WiDaySunny } from "react-icons/wi";
 import { WiDayCloudy } from "react-icons/wi";
@@ -15,14 +16,25 @@ import { WiSleet } from "react-icons/wi";
 import { WiThunderstorm } from "react-icons/wi";
 import { WiHail } from "react-icons/wi";
 
-interface WeatherCardProps {
+type BaseCardProps = {
   locationName: string;
   tempCurrentCelsius: number;
+  condition: number;
+  setIsExpanded: (isExpanded: boolean) => void;
+  prefersFehrenheit?: boolean;
+};
+
+type CollapsedProps = BaseCardProps & {
   tempHighCelsius: number;
   tempLowCelsius: number;
-  condition: number;
-  prefersFehrenheit?: boolean;
-}
+};
+
+type ExpandedProps = BaseCardProps;
+
+type WeatherCardProps = CollapsedProps &
+  ExpandedProps & {
+    isExpanded?: boolean;
+  };
 
 function weatherCodeFormatter(code: number) {
   switch (code) {
@@ -182,7 +194,7 @@ function cToF(temp: number) {
   return Math.round(temp * (9 / 5) + 32);
 }
 
-export function WeatherCard(prop: WeatherCardProps) {
+function CollapsedCard(prop: CollapsedProps) {
   let tempCurrent = prop.tempCurrentCelsius;
   let tempHigh = prop.tempHighCelsius;
   let tempLow = prop.tempLowCelsius;
@@ -197,6 +209,10 @@ export function WeatherCard(prop: WeatherCardProps) {
     tempLow = cToF(tempLow);
   }
 
+  function handleOnClick() {
+    prop.setIsExpanded(true);
+  }
+
   return (
     <>
       <div className={`${styles.card} ${conditionClassName}`}>
@@ -205,10 +221,7 @@ export function WeatherCard(prop: WeatherCardProps) {
           <div className={styles.icon}>{conditionIconName}</div>
         </div>
         <div className={styles.cardTempCurrent}>{tempCurrent}</div>
-        <div className={styles.cardCondition}>
-          {conditionDescription}{" "}
-          <span visually-hidden="true">degrees fehrenheit</span>
-        </div>
+        <div className={styles.cardCondition}>{conditionDescription} </div>
         <footer className={styles.cardFoot}>
           <div className={styles.cardHighLow}>
             <div className={styles.cardHigh}>
@@ -220,13 +233,88 @@ export function WeatherCard(prop: WeatherCardProps) {
               <div className={styles.cardLowlabel}>low</div>
             </div>
           </div>
-          <button className={styles.cardExpandToggle}>
+          <button onClick={handleOnClick} className={styles.cardExpandToggle}>
             <RiTimeFill />
             hourly forecast
             <RiArrowRightLine className={styles.cardExpandToggleRightArrow} />
           </button>
         </footer>
       </div>
+    </>
+  );
+}
+
+function ExpandedCard(prop: ExpandedProps) {
+  const conditionClassName =
+    weatherCodeFormatter(prop.condition).classNameValue || "";
+  const conditionIconName = weatherCodeFormatter(prop.condition).icon;
+  let tempCurrent = prop.tempCurrentCelsius;
+  const conditionDescription = weatherCodeFormatter(prop.condition).description;
+
+  if (prop.prefersFehrenheit == true) {
+    tempCurrent = cToF(tempCurrent);
+  }
+
+  function handleOnClick() {
+    prop.setIsExpanded(false);
+  }
+
+  return (
+    <>
+      <div
+        className={`${styles.card} ${styles.cardIsExpanded} ${conditionClassName}`}
+      >
+        <h2 className={styles.cardTitle}>{prop.locationName}</h2>
+        <div className={styles.cardIconWrapper}>
+          <div className={styles.icon}>{conditionIconName}</div>
+        </div>
+        <div className={styles.cardTempCurrent}>{tempCurrent}</div>
+        <div className={styles.cardCondition}>{conditionDescription}</div>
+        <footer className={styles.cardFoot}>
+          <ol className={styles.hourlyForecast}>
+            <li className={styles.hourlyForecastItem}>12am</li>
+            <li className={styles.hourlyForecastItem}>1am</li>
+            <li className={styles.hourlyForecastItem}>2am</li>
+            <li className={styles.hourlyForecastItem}>3am</li>
+            <li className={styles.hourlyForecastItem}>4am</li>
+            <li className={styles.hourlyForecastItem}>5am</li>
+            <li className={styles.hourlyForecastItem}>6am</li>
+            <li className={styles.hourlyForecastItem}>7am</li>
+            <li className={styles.hourlyForecastItem}>8am</li>
+            <li className={styles.hourlyForecastItem}>9am</li>
+            <li className={styles.hourlyForecastItem}>10am</li>
+            <li className={styles.hourlyForecastItem}>11am</li>
+            <li className={styles.hourlyForecastItem}>12pm</li>
+            <li className={styles.hourlyForecastItem}>1pm</li>
+            <li className={styles.hourlyForecastItem}>2pm</li>
+            <li className={styles.hourlyForecastItem}>3pm</li>
+            <li className={styles.hourlyForecastItem}>4pm</li>
+            <li className={styles.hourlyForecastItem}>5pm</li>
+            <li className={styles.hourlyForecastItem}>6pm</li>
+            <li className={styles.hourlyForecastItem}>7pm</li>
+            <li className={styles.hourlyForecastItem}>8pm</li>
+            <li className={styles.hourlyForecastItem}>9pm</li>
+            <li className={styles.hourlyForecastItem}>10pm</li>
+            <li className={styles.hourlyForecastItem}>11pm</li>
+          </ol>
+          <button onClick={handleOnClick} className={styles.cardExpandToggle}>
+            <RiArrowLeftLine />
+            collapse
+          </button>
+        </footer>
+      </div>
+    </>
+  );
+}
+
+export function WeatherCard(prop: WeatherCardProps) {
+  return (
+    <>
+      {!prop.isExpanded ? (
+        <CollapsedCard {...prop} />
+      ) : (
+        <ExpandedCard {...prop} />
+      )}
     </>
   );
 }

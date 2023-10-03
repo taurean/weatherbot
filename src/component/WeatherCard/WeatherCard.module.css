@@ -137,6 +137,10 @@
   }
 }
 
+.cardIsExpanded {
+  grid-column: 1 / span 14;
+}
+
 .cardTitle {
   font-size: var(--step-0);
   text-align: center;
@@ -233,5 +237,49 @@
     .cardExpandToggleRightArrow {
       transform: translateX(3px);
     }
+  }
+}
+
+.cardIsExpanded .cardFoot {
+  padding: 0;
+  position: relative;
+}
+
+.cardIsExpanded .cardExpandToggle {
+  width: fit-content;
+  margin: 0 auto;
+  padding: var(--space-xs);
+  border-radius: var(--radii-pill);
+  position: absolute;
+  bottom: calc(var(--space-l) * -1);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hourlyForecast {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  flex-direction: row;
+  margin: 0;
+  border-top: 1px solid var(--card-bg-alt);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.hourlyForecastItem {
+  min-height: 100px;
+  font-size: var(--step--1);
+  text-align: center;
+  padding: var(--space-3xs) var(--space-3xs) var(--space-m);
+  &:nth-of-type(even) {
+    background-color: var(--card-bg);
+  }
+
+  &:first-of-type {
+    border-radius: 0 0 0 var(--radii-default);
+  }
+
+  &:last-of-type {
+    border-radius: 0 0 var(--radii-default) 0;
   }
 }

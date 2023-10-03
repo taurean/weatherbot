@@ -1,36 +1,38 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./FToggle.module.css";
 import * as Ariakit from "@ariakit/react";
 
-function useUnitPreference() {
-  const [unitPreference, setUnitPreference] = useState(false);
+const localStorageResponse = localStorage.getItem("useFahrenheit");
+
+type UnitPreference = "fahrenheit" | "celsius";
+
+let initialUnitPreference = localStorageResponse as UnitPreference;
+
+if (localStorageResponse == undefined) {
+  initialUnitPreference = "celsius";
+}
+
+function useUnitPreference(): [
+  UnitPreference,
+  (unitPreference: UnitPreference) => void
+] {
+  const [unitPreference, setUnitPreference] = useState(initialUnitPreference);
   return [unitPreference, setUnitPreference];
 }
 
 export function FToggle() {
-  const unitPreferenceBool = useUnitPreference();
-
-  function setDefaultValue() {
-    const localStorageResponse = localStorage.getItem("useFahrenheit");
-
-    if (localStorageResponse == "true") {
-      return "fahrenheit";
-    } else {
-      return "celsius";
-    }
-  }
+  const [unitPreference, setUnitPreference] = useUnitPreference();
 
   function handleOnChange() {
-    unitPreferenceBool[0] = !unitPreferenceBool[0];
-    localStorage.setItem(
-      "useFahrenheit",
-      unitPreferenceBool[0].toString() as string
-    );
+    const nextPreference =
+      unitPreference == "celsius" ? "fahrenheit" : "celsius";
+    setUnitPreference(nextPreference);
+    localStorage.setItem("useFahrenheit", nextPreference);
   }
 
   return (
     <>
-      <Ariakit.RadioProvider defaultValue={setDefaultValue()}>
+      <Ariakit.RadioProvider defaultValue={unitPreference}>
         <Ariakit.RadioGroup
           className={styles.radioGroup}
           onChange={handleOnChange}
