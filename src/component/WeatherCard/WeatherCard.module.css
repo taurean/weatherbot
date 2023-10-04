@@ -9,7 +9,7 @@
 
   background-color: var(--card-bg);
   color: var(--card-fg);
-  grid-column: 1 / span 3;
+  grid-column: span 3;
   border-radius: var(--radii-default);
   padding: var(--space-s) 0 0 0;
   line-height: 1;
