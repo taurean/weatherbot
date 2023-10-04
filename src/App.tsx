@@ -31,6 +31,17 @@ function useWeather(location: LocationReponse | null) {
   return weatherData;
 }
 
+export type UnitPreference = "fahrenheit" | "celsius";
+
+const localStorageResponse = localStorage.getItem("useFahrenheit");
+let initialUnitPreference = localStorageResponse as UnitPreference;
+
+if (localStorageResponse === null) {
+  initialUnitPreference = "celsius";
+}
+
+console.log(initialUnitPreference, localStorageResponse);
+
 function App() {
   const [location, setLocationName] = useState<LocationReponse | null>(null);
 
@@ -49,11 +60,23 @@ function App() {
 
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const [unitPreference, setUnitPreference] = useState(initialUnitPreference);
+
+  function togglePreference(nextPreference: UnitPreference) {
+    setUnitPreference(nextPreference);
+    localStorage.setItem("useFahrenheit", nextPreference);
+    console.log(`preference toggled`);
+  }
+  // End of Unit Preference
+
   return (
     <>
       <header className="rootHeading">
         <h1 className="rootHeadingTitle">Weatherbot</h1>
-        <FToggle />
+        <FToggle
+          currentValue={unitPreference}
+          setPreferredValue={togglePreference}
+        />
       </header>
       <main className="u-container">
         <section className="u-grid">
@@ -64,7 +87,7 @@ function App() {
               tempHighCelsius={weatherData.daily.temperature_2m_max[0]}
               tempLowCelsius={weatherData.daily.temperature_2m_min[0]}
               condition={weatherData.hourly.weathercode[0]}
-              prefersFehrenheit={false}
+              prefersFehrenheit={unitPreference == "fahrenheit"}
               isExpanded={isExpanded}
               setIsExpanded={setIsExpanded}
             />
