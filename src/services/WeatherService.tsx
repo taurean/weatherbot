@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 const GEO_API_URL = `https://geocoding-api.open-meteo.com/v1/search?`;
 const WEATHER_API_URL = `https://api.open-meteo.com/v1/forecast?`;
 
@@ -77,4 +78,24 @@ export async function getWeather(
   } catch (error) {
     return { error: true, reason: (error as Error).message };
   }
+}
+
+export function useWeather(location: LocationReponse | null) {
+  const [weatherData, setWeatherData] = useState<WeatherResponse | null>(null);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      if (location) {
+        const latitude = location.results.results[0].latitude;
+        const longitude = location.results.results[0].longitude;
+        const data = await getWeather(latitude, longitude);
+        if (!("error" in data)) {
+          setWeatherData(data);
+        }
+      }
+    };
+    fetchWeather();
+  }, [location]);
+
+  return weatherData;
 }

@@ -1,3 +1,4 @@
+import { LocationReponse, useWeather } from "../../services/WeatherService";
 import { RiTimeFill } from "react-icons/ri";
 import { RiArrowRightLine } from "react-icons/ri";
 import { RiArrowLeftLine } from "react-icons/ri";
@@ -21,7 +22,7 @@ type BaseCardProps = {
   tempCurrentCelsius: number;
   condition: number;
   setIsExpanded: (isExpanded: boolean) => void;
-  prefersFehrenheit?: boolean;
+  prefersFahrenheit?: boolean;
 };
 
 type CollapsedProps = BaseCardProps & {
@@ -31,10 +32,12 @@ type CollapsedProps = BaseCardProps & {
 
 type ExpandedProps = BaseCardProps;
 
-type WeatherCardProps = CollapsedProps &
-  ExpandedProps & {
-    isExpanded?: boolean;
-  };
+type WeatherCardProps = {
+  location: LocationReponse;
+  prefersFahrenheit?: boolean;
+  isExpanded?: boolean;
+  setIsExpanded: (isExpanded: boolean) => void;
+};
 
 function weatherCodeFormatter(code: number) {
   switch (code) {
@@ -203,7 +206,7 @@ function CollapsedCard(prop: CollapsedProps) {
     weatherCodeFormatter(prop.condition).classNameValue || "";
   const conditionIconName = weatherCodeFormatter(prop.condition).icon;
 
-  if (prop.prefersFehrenheit == true) {
+  if (prop.prefersFahrenheit == true) {
     tempCurrent = cToF(tempCurrent);
     tempHigh = cToF(tempHigh);
     tempLow = cToF(tempLow);
@@ -251,7 +254,7 @@ function ExpandedCard(prop: ExpandedProps) {
   let tempCurrent = prop.tempCurrentCelsius;
   const conditionDescription = weatherCodeFormatter(prop.condition).description;
 
-  if (prop.prefersFehrenheit == true) {
+  if (prop.prefersFahrenheit == true) {
     tempCurrent = cToF(tempCurrent);
   }
 
@@ -308,12 +311,30 @@ function ExpandedCard(prop: ExpandedProps) {
 }
 
 export function WeatherCard(prop: WeatherCardProps) {
+  const weatherData = useWeather(prop.location);
+
+  if (!weatherData) {
+    return null;
+  }
+
   return (
     <>
       {!prop.isExpanded ? (
-        <CollapsedCard {...prop} />
+        <CollapsedCard
+          locationName={prop.location.results.results[0].name}
+          tempCurrentCelsius={weatherData.hourly.temperature_2m[0]}
+          tempHighCelsius={weatherData.daily.temperature_2m_max[0]}
+          tempLowCelsius={weatherData.daily.temperature_2m_min[0]}
+          condition={weatherData.hourly.weathercode[0]}
+          {...prop}
+        />
       ) : (
-        <ExpandedCard {...prop} />
+        <ExpandedCard
+          locationName={prop.location.results.results[0].name}
+          tempCurrentCelsius={weatherData.hourly.temperature_2m[0]}
+          condition={weatherData.hourly.weathercode[0]}
+          {...prop}
+        />
       )}
     </>
   );

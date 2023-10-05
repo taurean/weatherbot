@@ -138,7 +138,7 @@
 }
 
 .cardIsExpanded {
-  grid-column: 1 / span 14;
+  grid-column: 1 / span 12;
 }
 
 .cardTitle {

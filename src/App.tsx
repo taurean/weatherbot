@@ -11,26 +11,6 @@ import {
   LocationReponse,
 } from "./services/WeatherService";
 
-function useWeather(location: LocationReponse | null) {
-  const [weatherData, setWeatherData] = useState<WeatherResponse | null>(null);
-
-  useEffect(() => {
-    const fetchWeather = async () => {
-      if (location) {
-        const latitude = location.results.results[0].latitude;
-        const longitude = location.results.results[0].longitude;
-        const data = await getWeather(latitude, longitude);
-        if (!("error" in data)) {
-          setWeatherData(data);
-        }
-      }
-    };
-    fetchWeather();
-  }, [location]);
-
-  return weatherData;
-}
-
 export type UnitPreference = "fahrenheit" | "celsius";
 
 const localStorageResponse = localStorage.getItem("useFahrenheit");
@@ -42,8 +22,17 @@ if (localStorageResponse === null) {
 
 console.log(initialUnitPreference, localStorageResponse);
 
+function evenItems<T>(arr: T[]) {
+  return arr;
+}
+
+const arrExample: object[] = [{}];
+const evenExample = evenItems(arrExample);
+console.log(evenExample);
+
 function App() {
   const [location, setLocationName] = useState<LocationReponse | null>(null);
+  const [locationList, setLocationList] = useState<LocationReponse[]>([]);
 
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -56,8 +45,6 @@ function App() {
     fetchLocationData();
   }, []);
 
-  const weatherData = useWeather(location);
-
   const [isExpanded, setIsExpanded] = useState(false);
 
   const [unitPreference, setUnitPreference] = useState(initialUnitPreference);
@@ -69,6 +56,13 @@ function App() {
   }
   // End of Unit Preference
 
+  async function handleAddCard() {
+    const location = await getLocation("New York");
+    if (!("error" in location)) {
+      setLocationList([...locationList, location]);
+    }
+  }
+
   return (
     <>
       <header className="rootHeading">
@@ -79,19 +73,26 @@ function App() {
         />
       </header>
       <main className="u-container">
+        <button onClick={handleAddCard}>Add Card</button>
         <section className="u-grid">
-          {weatherData && location && (
+          {location && (
             <WeatherCard
-              locationName={location.results.results[0].name}
-              tempCurrentCelsius={weatherData.hourly.temperature_2m[0]}
-              tempHighCelsius={weatherData.daily.temperature_2m_max[0]}
-              tempLowCelsius={weatherData.daily.temperature_2m_min[0]}
-              condition={weatherData.hourly.weathercode[0]}
-              prefersFehrenheit={unitPreference == "fahrenheit"}
+              location={location}
+              prefersFahrenheit={unitPreference == "fahrenheit"}
               isExpanded={isExpanded}
               setIsExpanded={setIsExpanded}
             />
           )}
+          {locationList.map((location) => {
+            return (
+              <WeatherCard
+                location={location}
+                prefersFahrenheit={unitPreference == "fahrenheit"}
+                isExpanded={isExpanded}
+                setIsExpanded={setIsExpanded}
+              />
+            );
+          })}
         </section>
       </main>
     </>
