@@ -1,4 +1,11 @@
 # Weatherbot
+
+## Quickstart
+
+- run `npm i` to install necessary packages
+- run `npm run dev` to run the app locally
+- run `npm run storybook` to view component documentation
+
 ## Requirements
 
 - interface is list of weather cards
