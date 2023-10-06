@@ -3,6 +3,7 @@ import "./App.css";
 
 import { FToggle } from "./component/FToggle/FToggle";
 import { WeatherCard } from "./component/WeatherCard/WeatherCard";
+import { NewCard } from "./component/NewCard/NewCard";
 
 import {
   getWeather,
@@ -73,8 +74,9 @@ function App() {
         />
       </header>
       <main className="u-container">
-        <button onClick={handleAddCard}>Add Card</button>
+        <button onClick={handleAddCard}>old card</button>
         <section className="u-grid">
+          <NewCard />
           {location && (
             <WeatherCard
               location={location}

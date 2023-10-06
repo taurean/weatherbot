@@ -1,0 +1,25 @@
+.newCard {
+  --card-bg: var(--hue-neutral-100);
+  --card-fg: var(--hue-neutral-800);
+  --card-accent: var(--hue-neutral-600);
+
+  align-items: center;
+  background-color: var(--card-bg);
+  border-radius: var(--radii-default);
+  flex-direction: column;
+  color: var(--card-fg);
+  cursor: pointer;
+  display: inline-flex;
+  grid-column: span 3;
+  justify-content: center;
+  line-height: 1;
+  padding: var(--space-s) 0 0 0;
+
+  @media (prefers-color-scheme: dark) {
+    & {
+      --card-bg: var(--hue-neutral-800);
+      --card-fg: var(--hue-neutral-100);
+      --card-accent: var(--hue-neutral-300);
+    }
+  }
+}
