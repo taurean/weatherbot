@@ -1,6 +1,7 @@
 import { useWeather } from "../../services/WeatherService";
 import { CardLocation } from "../../App";
 import { RiTimeFill } from "react-icons/ri";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { RiArrowRightLine } from "react-icons/ri";
 import { RiArrowLeftLine } from "react-icons/ri";
 import styles from "./WeatherCard.module.css";
@@ -32,12 +33,15 @@ type CollapsedProps = BaseCardProps & {
   tempLowCelsius: number;
 };
 
-type ExpandedProps = BaseCardProps;
+type ExpandedProps = BaseCardProps & {
+  setRemoveCard: (id: number) => void;
+};
 
 type WeatherCardProps = {
   location: CardLocation;
   prefersFahrenheit?: boolean;
   setIsExpanded: (id: number, isExpanded: boolean) => void;
+  setRemoveCard: (id: number) => void;
 };
 
 function weatherCodeFormatter(code: number) {
@@ -259,8 +263,13 @@ function ExpandedCard(prop: ExpandedProps) {
     tempCurrent = cToF(tempCurrent);
   }
 
-  function handleOnClick() {
+  function handleClickCollapse() {
     prop.setIsExpanded(prop.locationId, false);
+  }
+
+  function handleClickRemove() {
+    prop.setRemoveCard(prop.locationId);
+    console.log("remove btn clicked!");
   }
 
   return (
@@ -301,10 +310,22 @@ function ExpandedCard(prop: ExpandedProps) {
             <li className={styles.hourlyForecastItem}>10pm</li>
             <li className={styles.hourlyForecastItem}>11pm</li>
           </ol>
-          <button onClick={handleOnClick} className={styles.cardExpandToggle}>
-            <RiArrowLeftLine />
-            collapse
-          </button>
+          <div className={styles.cardBtnGroup}>
+            <button
+              onClick={handleClickCollapse}
+              className={styles.cardExpandToggle}
+            >
+              <RiArrowLeftLine />
+              collapse
+            </button>
+            <button
+              onClick={handleClickRemove}
+              className={styles.removeCardBtn}
+            >
+              <RiDeleteBinFill />
+              <span visually-hidden="true">Remove Location</span>
+            </button>
+          </div>
         </footer>
       </div>
     </>

@@ -214,16 +214,32 @@
   text-transform: uppercase;
 }
 
-.cardExpandToggle {
-  background-color: var(--card-bg-btn);
-  color: var(--card-fg-btn);
+.cardBtnGroup {
+  position: absolute;
+  left: 50%;
+  display: inline-flex;
+  transform: translate(-50%, -50%);
+}
+
+.cardExpandToggle,
+.removeCardBtn {
   border-radius: 6px;
   padding: var(--space-3xs);
-  width: 100%;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+  }
+}
+
+.cardExpandToggle {
+  background-color: var(--card-bg-btn);
+  color: var(--card-fg-btn);
+  width: 100%;
 
   .cardExpandToggleRightArrow {
     transition: transform 100ms ease-in-out;
@@ -232,8 +248,6 @@
 
   &:hover,
   &:focus {
-    cursor: pointer;
-
     .cardExpandToggleRightArrow {
       transform: translateX(3px);
     }
@@ -247,13 +261,18 @@
 
 .cardIsExpanded .cardExpandToggle {
   width: fit-content;
-  margin: 0 auto;
+  margin: 0 var(--space-2xs) 0 0;
   padding: var(--space-xs);
   border-radius: var(--radii-pill);
-  position: absolute;
   bottom: calc(var(--space-l) * -1);
-  left: 50%;
-  transform: translate(-50%, -50%);
+}
+
+.removeCardBtn {
+  background-color: var(--hue-red-700);
+  border-radius: var(--radii-circle);
+  aspect-ratio: 1 / 1;
+  color: var(--hue-red-100);
+  padding: var(--space-xs);
 }
 
 .hourlyForecast {
