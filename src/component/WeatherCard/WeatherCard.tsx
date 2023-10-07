@@ -269,7 +269,6 @@ function ExpandedCard(prop: ExpandedProps) {
 
   function handleClickRemove() {
     prop.setRemoveCard(prop.locationId);
-    console.log("remove btn clicked!");
   }
 
   return (
