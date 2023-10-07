@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 const GEO_API_URL = `https://geocoding-api.open-meteo.com/v1/search?`;
 const WEATHER_API_URL = `https://api.open-meteo.com/v1/forecast?`;
+import { CardLocation } from "../App";
 
 export interface LocationResponceItem {
   id: number;
@@ -9,6 +10,8 @@ export interface LocationResponceItem {
   longitude: number;
   country: string;
   admin1: string;
+  admin2: string;
+  timezone: string;
 }
 
 export interface LocationReponse {
@@ -80,14 +83,13 @@ export async function getWeather(
   }
 }
 
-export function useWeather(location: LocationReponse | null) {
+export function useWeather(location: CardLocation | null) {
   const [weatherData, setWeatherData] = useState<WeatherResponse | null>(null);
 
   useEffect(() => {
     const fetchWeather = async () => {
       if (location) {
-        const latitude = location.results.results[0].latitude;
-        const longitude = location.results.results[0].longitude;
+        const { latitude, longitude } = location;
         const data = await getWeather(latitude, longitude);
         if (!("error" in data)) {
           setWeatherData(data);

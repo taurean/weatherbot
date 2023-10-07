@@ -1,67 +1,84 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 
 import { FToggle } from "./component/FToggle/FToggle";
 import { WeatherCard } from "./component/WeatherCard/WeatherCard";
 import { NewCard } from "./component/NewCard/NewCard";
 
-import {
-  getWeather,
-  WeatherResponse,
-  getLocation,
-  LocationReponse,
-} from "./services/WeatherService";
+import { getLocation, LocationReponse } from "./services/WeatherService";
 
 export type UnitPreference = "fahrenheit" | "celsius";
 
+export type CardLocation = {
+  id: number;
+  locationName: string;
+  locationRegion1: string;
+  locationRegion2: string;
+  country: string;
+  longitude: number;
+  latitude: number;
+  timezone: string;
+  isExpanded: boolean;
+};
+
 const localStorageResponse = localStorage.getItem("useFahrenheit");
 let initialUnitPreference = localStorageResponse as UnitPreference;
+
+const initialLocationList: CardLocation[] = JSON.parse(
+  localStorage.getItem("locationArray") || "[]"
+);
 
 if (localStorageResponse === null) {
   initialUnitPreference = "celsius";
 }
 
-console.log(initialUnitPreference, localStorageResponse);
-
-function evenItems<T>(arr: T[]) {
-  return arr;
-}
-
-const arrExample: object[] = [{}];
-const evenExample = evenItems(arrExample);
-console.log(evenExample);
-
 function App() {
-  const [location, setLocationName] = useState<LocationReponse | null>(null);
-  const [locationList, setLocationList] = useState<LocationReponse[]>([]);
-
-  useEffect(() => {
-    const fetchLocationData = async () => {
-      const searchParam = "sao paulo";
-      const returnedData = await getLocation(searchParam);
-      if (!("error" in returnedData)) {
-        setLocationName(returnedData);
-      }
-    };
-    fetchLocationData();
-  }, []);
-
-  const [isExpanded, setIsExpanded] = useState(false);
-
+  const [locationList, setLocationList] =
+    useState<CardLocation[]>(initialLocationList);
   const [unitPreference, setUnitPreference] = useState(initialUnitPreference);
+
+  function setIsExpanded(id: number, isExpanded: boolean) {
+    const nextLocationList = [...locationList];
+    const cardIndex = nextLocationList.findIndex((location) => {
+      return location.id == id;
+    });
+    const updatedCard = { ...locationList[cardIndex] };
+    updatedCard.isExpanded = isExpanded;
+
+    nextLocationList[cardIndex] = updatedCard;
+    setLocationList(nextLocationList);
+    localStorage.setItem("locationArray", JSON.stringify(nextLocationList));
+  }
+
+  async function handleAddLocation(enteredLocation: string) {
+    const currentLocationId = locationList.length;
+    const locationData = await getLocation(enteredLocation);
+
+    if (!("error" in locationData)) {
+      const firstLocationResult = locationData.results.results[0];
+
+      const currentLocation: CardLocation = {
+        id: currentLocationId,
+        locationName: firstLocationResult.name,
+        locationRegion1: firstLocationResult.admin1,
+        locationRegion2: firstLocationResult.admin2,
+        country: firstLocationResult.country,
+        longitude: firstLocationResult.longitude,
+        latitude: firstLocationResult.latitude,
+        timezone: firstLocationResult.timezone,
+        isExpanded: false,
+      };
+
+      const nextLocationList = [...locationList, currentLocation];
+
+      setLocationList(nextLocationList);
+      localStorage.setItem("locationArray", JSON.stringify(nextLocationList));
+    }
+  }
 
   function togglePreference(nextPreference: UnitPreference) {
     setUnitPreference(nextPreference);
     localStorage.setItem("useFahrenheit", nextPreference);
-    console.log(`preference toggled`);
-  }
-  // End of Unit Preference
-
-  async function handleAddCard() {
-    const location = await getLocation("New York");
-    if (!("error" in location)) {
-      setLocationList([...locationList, location]);
-    }
   }
 
   return (
@@ -74,27 +91,18 @@ function App() {
         />
       </header>
       <main className="u-container">
-        <button onClick={handleAddCard}>old card</button>
         <section className="u-grid">
-          <NewCard />
-          {location && (
-            <WeatherCard
-              location={location}
-              prefersFahrenheit={unitPreference == "fahrenheit"}
-              isExpanded={isExpanded}
-              setIsExpanded={setIsExpanded}
-            />
-          )}
           {locationList.map((location) => {
             return (
               <WeatherCard
+                key={location.id}
                 location={location}
                 prefersFahrenheit={unitPreference == "fahrenheit"}
-                isExpanded={isExpanded}
                 setIsExpanded={setIsExpanded}
               />
             );
           })}
+          <NewCard setLocationObject={handleAddLocation} />
         </section>
       </main>
     </>

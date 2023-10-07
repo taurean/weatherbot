@@ -1,4 +1,5 @@
-import { LocationReponse, useWeather } from "../../services/WeatherService";
+import { useWeather } from "../../services/WeatherService";
+import { CardLocation } from "../../App";
 import { RiTimeFill } from "react-icons/ri";
 import { RiArrowRightLine } from "react-icons/ri";
 import { RiArrowLeftLine } from "react-icons/ri";
@@ -18,10 +19,11 @@ import { WiThunderstorm } from "react-icons/wi";
 import { WiHail } from "react-icons/wi";
 
 type BaseCardProps = {
+  locationId: number;
   locationName: string;
   tempCurrentCelsius: number;
   condition: number;
-  setIsExpanded: (isExpanded: boolean) => void;
+  setIsExpanded: (id: number, isExpanded: boolean) => void;
   prefersFahrenheit?: boolean;
 };
 
@@ -33,10 +35,9 @@ type CollapsedProps = BaseCardProps & {
 type ExpandedProps = BaseCardProps;
 
 type WeatherCardProps = {
-  location: LocationReponse;
+  location: CardLocation;
   prefersFahrenheit?: boolean;
-  isExpanded?: boolean;
-  setIsExpanded: (isExpanded: boolean) => void;
+  setIsExpanded: (id: number, isExpanded: boolean) => void;
 };
 
 function weatherCodeFormatter(code: number) {
@@ -213,7 +214,7 @@ function CollapsedCard(prop: CollapsedProps) {
   }
 
   function handleOnClick() {
-    prop.setIsExpanded(true);
+    prop.setIsExpanded(prop.locationId, true);
   }
 
   return (
@@ -259,7 +260,7 @@ function ExpandedCard(prop: ExpandedProps) {
   }
 
   function handleOnClick() {
-    prop.setIsExpanded(false);
+    prop.setIsExpanded(prop.locationId, false);
   }
 
   return (
@@ -319,9 +320,10 @@ export function WeatherCard(prop: WeatherCardProps) {
 
   return (
     <>
-      {!prop.isExpanded ? (
+      {!prop.location.isExpanded ? (
         <CollapsedCard
-          locationName={prop.location.results.results[0].name}
+          locationId={prop.location.id}
+          locationName={prop.location.locationName}
           tempCurrentCelsius={weatherData.hourly.temperature_2m[0]}
           tempHighCelsius={weatherData.daily.temperature_2m_max[0]}
           tempLowCelsius={weatherData.daily.temperature_2m_min[0]}
@@ -330,7 +332,8 @@ export function WeatherCard(prop: WeatherCardProps) {
         />
       ) : (
         <ExpandedCard
-          locationName={prop.location.results.results[0].name}
+          locationId={prop.location.id}
+          locationName={prop.location.locationName}
           tempCurrentCelsius={weatherData.hourly.temperature_2m[0]}
           condition={weatherData.hourly.weathercode[0]}
           {...prop}

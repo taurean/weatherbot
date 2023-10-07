@@ -1,25 +1,84 @@
 .newCard {
-  --card-bg: var(--hue-neutral-100);
-  --card-fg: var(--hue-neutral-800);
-  --card-accent: var(--hue-neutral-600);
-
-  align-items: center;
+  --card-bg: var(--hue-rose-100);
+  --card-fg: var(--hue-rose-800);
+  --card-alt-bg: var(--hue-rose-300);
+  --card-alt-fg: var(--hue-rose-800);
+  --card-btn-bg: var(--hue-rose-700);
+  --card-btn-fg: var(--hue-rose-100);
+  --card-btn-hover: var(--hue-rose-900);
   background-color: var(--card-bg);
   border-radius: var(--radii-default);
-  flex-direction: column;
   color: var(--card-fg);
-  cursor: pointer;
   display: inline-flex;
+  flex-direction: column;
   grid-column: span 3;
   justify-content: center;
   line-height: 1;
-  padding: var(--space-s) 0 0 0;
+  min-height: 380px;
+  min-width: 220px;
+  padding: var(--space-s) var(--space-m);
 
   @media (prefers-color-scheme: dark) {
     & {
-      --card-bg: var(--hue-neutral-800);
-      --card-fg: var(--hue-neutral-100);
-      --card-accent: var(--hue-neutral-300);
+      --card-bg: var(--hue-rose-900);
+      --card-fg: var(--hue-rose-100);
+      --card-alt-bg: var(--hue-rose-800);
+      --card-alt-fg: var(--hue-rose-200);
+      --card-btn-bg: var(--hue-rose-700);
+      --card-btn-fg: var(--hue-rose-100);
     }
+  }
+}
+
+.newCardLabel {
+  font-weight: 800;
+}
+
+.newCardInput {
+  background-color: var(--card-alt-bg);
+  border-radius: var(--radii-chip);
+  color: var(--card-alt-fg);
+  display: block;
+  margin: var(--space-s) 0;
+  padding: var(--space-2xs);
+  width: 100%;
+
+  &::placeholder {
+    color: var(--card-alt-fg);
+    opacity: 0.5;
+  }
+
+  &:focus {
+    outline: 1px solid var(--card-btn-bg);
+    outline-offset: var(--space-3xs);
+  }
+}
+
+.newCardBtn {
+  background-color: var(--card-btn-bg);
+  border-radius: var(--radii-pill);
+  color: var(--card-btn-fg);
+  cursor: pointer;
+  display: block;
+  padding: var(--space-2xs);
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms ease-in-out, color 150ms ease,
+    background-color 150ms ease;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    background-color: var(--card-btn-hover);
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: 1px solid var(--card-btn-bg);
+    outline-offset: var(--space-3xs);
+  }
+
+  &:active {
+    transform: translateY(1px);
   }
 }
