@@ -3,7 +3,7 @@ const GEO_API_URL = `https://geocoding-api.open-meteo.com/v1/search?`;
 const WEATHER_API_URL = `https://api.open-meteo.com/v1/forecast?`;
 import { CardLocation } from "../App";
 
-const USE_MOCK = true;
+const USE_MOCK = false;
 export interface LocationResponceItem {
   id: number;
   name: string;
