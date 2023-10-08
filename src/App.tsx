@@ -96,7 +96,11 @@ function App() {
       <header className="rootHeading">
         <span>
           <h1 className="rootHeadingTitle">Weatherbot</h1>
-          <a className="rootReadMeLink" href="/" target="_blank">
+          <a
+            className="rootReadMeLink"
+            href="https://github.com/taurean/weatherbot/blob/main/README.md"
+            target="_blank"
+          >
             readme.md
           </a>
         </span>
