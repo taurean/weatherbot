@@ -302,3 +302,29 @@
     border-radius: 0 0 var(--radii-default) 0;
   }
 }
+
+.hourlyForecastTime,
+.hourlyForecastTemp {
+  font-size: var(--step--3);
+}
+
+.hourlyForecastIcon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--card-accent);
+  margin-top: var(--space-2xs);
+
+  & svg {
+    height: 32px;
+    width: 32px;
+  }
+}
+
+.hourlyForecastTemp {
+  margin-bottom: var(--space-2xs);
+  position: relative;
+
+  &:after {
+    content: "º";
+  }
+}

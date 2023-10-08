@@ -50,7 +50,7 @@ function App() {
     localStorage.setItem("locationArray", JSON.stringify(nextLocationList));
   }
 
-  function setRemoveCard(id: number) {
+  function removeCard(id: number) {
     const nextLocationList = [...locationList];
     const cardIndex = nextLocationList.findIndex((location) => {
       return location.id == id;
@@ -61,7 +61,7 @@ function App() {
   }
 
   async function handleAddLocation(enteredLocation: string) {
-    const currentLocationId = Math.floor(Math.random() * 90000000);
+    const currentLocationId = Math.floor(Math.random() * 9000000000);
     const locationData = await getLocation(enteredLocation);
 
     if (!("error" in locationData)) {
@@ -109,7 +109,7 @@ function App() {
                 location={location}
                 prefersFahrenheit={unitPreference == "fahrenheit"}
                 setIsExpanded={setIsExpanded}
-                setRemoveCard={setRemoveCard}
+                setRemoveCard={removeCard}
               />
             );
           })}

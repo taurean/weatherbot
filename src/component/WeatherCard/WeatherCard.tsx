@@ -34,7 +34,12 @@ type CollapsedProps = BaseCardProps & {
 };
 
 type ExpandedProps = BaseCardProps & {
-  setRemoveCard: (id: number) => void;
+  removeCard: (id: number) => void;
+  hourly: {
+    temperature_2m: number[];
+    time: string[];
+    weathercode: number[];
+  };
 };
 
 type WeatherCardProps = {
@@ -268,8 +273,20 @@ function ExpandedCard(prop: ExpandedProps) {
   }
 
   function handleClickRemove() {
-    prop.setRemoveCard(prop.locationId);
+    prop.removeCard(prop.locationId);
   }
+
+  const hourlyForecast = prop.hourly.time.slice(0, 24).map((time, i) => {
+    return {
+      forecastTime: new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+      }).format(new Date(time)),
+      forecastWeatherCode: prop.hourly.weathercode[i],
+      forecastTemp: cToF(prop.hourly.temperature_2m[i]),
+    };
+  });
+
+  console.log(hourlyForecast);
 
   return (
     <>
@@ -284,30 +301,31 @@ function ExpandedCard(prop: ExpandedProps) {
         <div className={styles.cardCondition}>{conditionDescription}</div>
         <footer className={styles.cardFoot}>
           <ol className={styles.hourlyForecast}>
-            <li className={styles.hourlyForecastItem}>12am</li>
-            <li className={styles.hourlyForecastItem}>1am</li>
-            <li className={styles.hourlyForecastItem}>2am</li>
-            <li className={styles.hourlyForecastItem}>3am</li>
-            <li className={styles.hourlyForecastItem}>4am</li>
-            <li className={styles.hourlyForecastItem}>5am</li>
-            <li className={styles.hourlyForecastItem}>6am</li>
-            <li className={styles.hourlyForecastItem}>7am</li>
-            <li className={styles.hourlyForecastItem}>8am</li>
-            <li className={styles.hourlyForecastItem}>9am</li>
-            <li className={styles.hourlyForecastItem}>10am</li>
-            <li className={styles.hourlyForecastItem}>11am</li>
-            <li className={styles.hourlyForecastItem}>12pm</li>
-            <li className={styles.hourlyForecastItem}>1pm</li>
-            <li className={styles.hourlyForecastItem}>2pm</li>
-            <li className={styles.hourlyForecastItem}>3pm</li>
-            <li className={styles.hourlyForecastItem}>4pm</li>
-            <li className={styles.hourlyForecastItem}>5pm</li>
-            <li className={styles.hourlyForecastItem}>6pm</li>
-            <li className={styles.hourlyForecastItem}>7pm</li>
-            <li className={styles.hourlyForecastItem}>8pm</li>
-            <li className={styles.hourlyForecastItem}>9pm</li>
-            <li className={styles.hourlyForecastItem}>10pm</li>
-            <li className={styles.hourlyForecastItem}>11pm</li>
+            {prop.hourly.time.slice(0, 24).map((time, i) => {
+              return (
+                <li key={i} className={styles.hourlyForecastItem}>
+                  <div className={styles.hourlyForecastTime}>
+                    {new Intl.DateTimeFormat("en-US", {
+                      hour: "numeric",
+                    }).format(new Date(time))}
+                  </div>
+                  <div
+                    title={
+                      weatherCodeFormatter(prop.hourly.weathercode[i])
+                        .description
+                    }
+                    className={styles.hourlyForecastIcon}
+                  >
+                    {weatherCodeFormatter(prop.hourly.weathercode[i]).icon}
+                  </div>
+                  <div className={styles.hourlyForecastTemp}>
+                    {prop.prefersFahrenheit
+                      ? cToF(prop.hourly.temperature_2m[i])
+                      : prop.hourly.temperature_2m[i]}
+                  </div>
+                </li>
+              );
+            })}
           </ol>
           <div className={styles.cardBtnGroup}>
             <button
@@ -356,6 +374,7 @@ export function WeatherCard(prop: WeatherCardProps) {
           locationName={prop.location.locationName}
           tempCurrentCelsius={weatherData.hourly.temperature_2m[0]}
           condition={weatherData.hourly.weathercode[0]}
+          hourly={weatherData.hourly}
           {...prop}
         />
       )}
