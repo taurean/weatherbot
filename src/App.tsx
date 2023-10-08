@@ -96,7 +96,7 @@ function App() {
       <header className="rootHeading">
         <span>
           <h1 className="rootHeadingTitle">Weatherbot</h1>
-          <a className="rootReadMeLink" href="/">
+          <a className="rootReadMeLink" href="/" target="_blank">
             readme.md
           </a>
         </span>
