@@ -22,4 +22,27 @@ body {
 .rootHeadingTitle {
   font-size: var(--step-6);
   font-weight: 200;
+  display: inline-block;
+  margin-right: var(--space-s);
+}
+
+.rootReadMeLink {
+  display: inline-block;
+  vertical-align: text-bottom;
+  font-size: var(--step--1);
+  text-decoration: underline;
+  text-underline-offset: 1px;
+  opacity: 0.75;
+  transition: opacity 100ms ease-in-out, text-underline-offset 100ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    text-underline-offset: var(--space-3xs);
+  }
+
+  &:focus {
+    outline: 1px solid currentColor;
+    outline-offset: var(--space-3xs);
+    border-radius: var(--radii-chip);
+  }
 }

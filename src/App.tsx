@@ -94,7 +94,12 @@ function App() {
   return (
     <>
       <header className="rootHeading">
-        <h1 className="rootHeadingTitle">Weatherbot</h1>
+        <span>
+          <h1 className="rootHeadingTitle">Weatherbot</h1>
+          <a className="rootReadMeLink" href="/">
+            readme.md
+          </a>
+        </span>
         <FToggle
           currentValue={unitPreference}
           setPreferredValue={togglePreference}

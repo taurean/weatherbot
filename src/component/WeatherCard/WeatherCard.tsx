@@ -18,7 +18,7 @@ import { WiShowers } from "react-icons/wi";
 import { WiSleet } from "react-icons/wi";
 import { WiThunderstorm } from "react-icons/wi";
 import { WiHail } from "react-icons/wi";
-import { useMemo } from "react";
+import { cToF } from "../../utils";
 
 type BaseCardProps = {
   locationId: number;
@@ -202,10 +202,6 @@ function weatherCodeFormatter(code: number) {
         description: ``,
       };
   }
-}
-
-function cToF(temp: number) {
-  return Math.round(temp * (9 / 5) + 32);
 }
 
 function CollapsedCard(prop: CollapsedProps) {

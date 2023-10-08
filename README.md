@@ -5,6 +5,12 @@
 - run `npm i` to install necessary packages
 - run `npm run dev` to run the app locally
 - run `npm run storybook` to view component documentation
+- run `npm run test` to run tests
+- to tets mock data, update `USE_MOCK` to `true` to use mock data instead of API results
+
+## Things I would change if this were a real product
+
+- Firefox currently doesn't support `:has()` in CSS, I would use a different approach for styling the celsius/fahrenheit toggle
 
 ## Requirements
 
@@ -32,87 +38,3 @@
   - closable, not stack, persist across page close & reopens, bonus for alerts to appear through browser notif API
 - cloud sync
 - real-time forecasts
-
-# APIs
-
-## coords
-
-`GET /api/coordinates/${location}`
-
-```json
-200 {
-  data: {
-    lat: number,
-    lng: number
-  }
-}
-
-404 {
-  error: string
-}
-
-500 {
-  error: string
-}
-```
-
-## forecast
-
-`GET /api/forecast/${lat}/${lng}`
-
-```json
-TemperatureForecast: {
-	degrees: number,
-	time: string,
-}
-
-WeatherForecast: {
-	temp: {
-		hourly: TemperatureForecast[],
-		high: number,
-		low: number,
-}
-
-weather: 'cloudy' | 'rain' | 'sunny'
-}
-
-200 {
-  data: {
-    forecast: WeatherForecast
-  }
-}
-
-500 {
-  error: string
-}
-```
-
----
-
-## React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-### Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

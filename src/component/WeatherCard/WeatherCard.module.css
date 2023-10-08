@@ -234,6 +234,17 @@
   &:focus {
     cursor: pointer;
   }
+
+  &:focus {
+    outline: 1px solid var(--hue-neutral-950);
+    outline-offset: var(--space-3xs);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &:focus {
+      outline-color: var(--hue-neutral-50);
+    }
+  }
 }
 
 .cardExpandToggle {

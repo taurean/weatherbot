@@ -25,3 +25,8 @@
     }
   }
 }
+
+.label:has([aria-checked="true"]:focus) {
+  outline: 1px solid currentColor;
+  outline-offset: var(--space-3xs);
+}
