@@ -16,7 +16,7 @@ body {
   justify-content: space-between;
   max-width: var(--grid-max-width);
   padding-inline: var(--grid-gutter);
-  margin: 0 auto;
+  margin: 0 auto var(--space-m);
 }
 
 .rootHeadingTitle {
@@ -45,4 +45,17 @@ body {
     outline-offset: var(--space-3xs);
     border-radius: var(--radii-chip);
   }
+}
+
+.rootFooter {
+  padding-bottom: var(--space-xl);
+
+  a:focus {
+    outline: 1px solid currentColor;
+    outline-offset: var(--space-3xs);
+  }
+}
+
+.u-grid {
+  padding-bottom: var(--space-xl);
 }
