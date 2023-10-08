@@ -16,7 +16,7 @@ body {
   justify-content: space-between;
   max-width: var(--grid-max-width);
   padding-inline: var(--grid-gutter);
-  margin: 0 auto var(--space-m);
+  margin: var(--space-3xs) auto var(--space-m);
 }
 
 .rootHeadingTitle {
