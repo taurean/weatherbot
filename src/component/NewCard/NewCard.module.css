@@ -5,7 +5,7 @@
   --card-alt-fg: var(--hue-rose-800);
   --card-btn-bg: var(--hue-rose-700);
   --card-btn-fg: var(--hue-rose-100);
-  --card-btn-hover: var(--hue-rose-900);
+  --card-btn-hover: var(--hue-rose-800);
   background-color: var(--card-bg);
   border-radius: var(--radii-default);
   color: var(--card-fg);

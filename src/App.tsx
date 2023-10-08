@@ -5,7 +5,7 @@ import { FToggle } from "./component/FToggle/FToggle";
 import { WeatherCard } from "./component/WeatherCard/WeatherCard";
 import { NewCard } from "./component/NewCard/NewCard";
 
-import { getLocation, LocationReponse } from "./services/WeatherService";
+import { getLocation } from "./services/WeatherService";
 
 export type UnitPreference = "fahrenheit" | "celsius";
 
@@ -65,7 +65,7 @@ function App() {
     const locationData = await getLocation(enteredLocation);
 
     if (!("error" in locationData)) {
-      const firstLocationResult = locationData.results.results[0];
+      const firstLocationResult = locationData[0];
 
       const currentLocation: CardLocation = {
         id: currentLocationId,
@@ -109,7 +109,7 @@ function App() {
                 location={location}
                 prefersFahrenheit={unitPreference == "fahrenheit"}
                 setIsExpanded={setIsExpanded}
-                setRemoveCard={removeCard}
+                removeCard={removeCard}
               />
             );
           })}

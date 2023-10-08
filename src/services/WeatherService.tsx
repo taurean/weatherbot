@@ -3,6 +3,7 @@ const GEO_API_URL = `https://geocoding-api.open-meteo.com/v1/search?`;
 const WEATHER_API_URL = `https://api.open-meteo.com/v1/forecast?`;
 import { CardLocation } from "../App";
 
+const USE_MOCK = true;
 export interface LocationResponceItem {
   id: number;
   name: string;
@@ -14,11 +15,7 @@ export interface LocationResponceItem {
   timezone: string;
 }
 
-export interface LocationReponse {
-  results: {
-    results: LocationResponceItem[];
-  };
-}
+export type LocationReponse = LocationResponceItem[];
 
 export interface ErrorResponse {
   error: boolean;
@@ -40,7 +37,25 @@ export interface WeatherResponse {
   };
 }
 
-export async function getLocation(
+async function getLocationMock(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _searchParam: string
+): Promise<LocationReponse | ErrorResponse> {
+  return [
+    {
+      id: 5405380,
+      name: "Vallejo",
+      latitude: 38.10409,
+      longitude: -122.25664,
+      timezone: "America/Los_Angeles",
+      country: "United States",
+      admin1: "California",
+      admin2: "Solano",
+    },
+  ];
+}
+
+async function _getLocation(
   searchParam: string
 ): Promise<LocationReponse | ErrorResponse> {
   try {
@@ -49,7 +64,7 @@ export async function getLocation(
     );
     if (response.ok) {
       const results = await response.json();
-      return { results };
+      return results.results;
     }
     if (response.status == 404 || response.status == 500) {
       const error = await response.json();
@@ -60,6 +75,8 @@ export async function getLocation(
     return { error: true, reason: (error as Error).message };
   }
 }
+
+export const getLocation = USE_MOCK ? getLocationMock : _getLocation;
 
 export async function getWeather(
   latitude: number,

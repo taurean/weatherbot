@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import styles from "./NewCard.module.css";
 
 type NewCard = {
@@ -8,13 +8,14 @@ type NewCard = {
 export function NewCard(prop: NewCard) {
   const [inputValue, setInputValue] = useState("");
 
-  function handleOnChange() {
-    setInputValue(event?.target.value);
+  function handleOnChange(e: FormEvent<HTMLInputElement>) {
+    setInputValue((e.target as HTMLInputElement).value);
   }
 
-  function handleOnSubmit() {
-    event?.preventDefault();
+  function handleOnSubmit(e: FormEvent) {
+    e.preventDefault();
     prop.setLocationObject(inputValue);
+    setInputValue("");
   }
 
   return (
@@ -26,6 +27,7 @@ export function NewCard(prop: NewCard) {
           </label>
           <input
             className={styles.newCardInput}
+            value={inputValue}
             onChange={handleOnChange}
             id="newCardInput"
             type="text"

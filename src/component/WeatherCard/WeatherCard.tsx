@@ -18,6 +18,7 @@ import { WiShowers } from "react-icons/wi";
 import { WiSleet } from "react-icons/wi";
 import { WiThunderstorm } from "react-icons/wi";
 import { WiHail } from "react-icons/wi";
+import { useMemo } from "react";
 
 type BaseCardProps = {
   locationId: number;
@@ -46,7 +47,7 @@ type WeatherCardProps = {
   location: CardLocation;
   prefersFahrenheit?: boolean;
   setIsExpanded: (id: number, isExpanded: boolean) => void;
-  setRemoveCard: (id: number) => void;
+  removeCard: (id: number) => void;
 };
 
 function weatherCodeFormatter(code: number) {
@@ -275,18 +276,6 @@ function ExpandedCard(prop: ExpandedProps) {
   function handleClickRemove() {
     prop.removeCard(prop.locationId);
   }
-
-  const hourlyForecast = prop.hourly.time.slice(0, 24).map((time, i) => {
-    return {
-      forecastTime: new Intl.DateTimeFormat("en-US", {
-        hour: "numeric",
-      }).format(new Date(time)),
-      forecastWeatherCode: prop.hourly.weathercode[i],
-      forecastTemp: cToF(prop.hourly.temperature_2m[i]),
-    };
-  });
-
-  console.log(hourlyForecast);
 
   return (
     <>
