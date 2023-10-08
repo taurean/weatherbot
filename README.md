@@ -1,16 +1,33 @@
 # Weatherbot
 
-## Quickstart
+## Things to look for
+
+- theming is managed with CSS Variables using the [Harmony Color Palette](https://twitter.com/romanshamin_en/status/1707756732674416806)
+  - This allows for using colors in the p3 colorspace and more importantly always offers accessible color contrast meeting the criteria of WCAG 3 requirements
+- each card is themed to match their weather condition. Clear skies are light blue, cloudy days are a darker blue shade, rainy days are purple, thunderstorms are fuschia, and snowy days are gray with a touch of blue mixed in.
+  - for each card style, there is a light and dark variant depending on if the device is in a dark or light theme itself
+- this project also uses CSS variables following the guidelines of [Utopia](http://utopia.fyi) to manage things like font-sizes, spacing, and CSS grid
+  - This allows us to offer size values that make sense for different viewports without having to heavily rely on media-queries causing things to seemingly pop in an out
+- everything meets the success criteria (2.1.1) for navigating with a keyboard
+  - All interactive elements are accessible via tabbing
+  - toggling between celsius and fahrenheit can be controlled with arrow keys when focused
+- in the hourly forecast, hovering on the condition icons displays a tooltip of the condition description
+- The location and weather API data comes from [Open Meteo](https://open-meteo.com)
+  - the mock data can be toggled when running locally by changing the `USE_MOCK` variable to `true` in the file [`src/services/WeatherService.tsx`](https://github.com/taurean/weatherbot/blob/main/src/services/WeatherService.tsx)
+
+## Commands
 
 - run `npm i` to install necessary packages
 - run `npm run dev` to run the app locally
 - run `npm run storybook` to view component documentation
 - run `npm run test` to run tests
-- to tets mock data, update `USE_MOCK` to `true` to use mock data instead of API results
 
 ## Things I would change if this were a real product
 
 - Firefox currently doesn't support `:has()` in CSS, I would use a different approach for styling the celsius/fahrenheit toggle
+- I would add loading states to cards to reduce the lag from when cards are added
+- I would add error states when data is unavailable as well as when a location is improperly entered for adding a new location
+- I would add an auto-fill+dropdown to the input field for adding new locations
 
 ## Requirements
 
