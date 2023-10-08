@@ -124,6 +124,15 @@ function App() {
           })}
           <NewCard setLocationObject={handleAddLocation} />
         </section>
+        <footer className="rootFooter">
+          <p>
+            built by{" "}
+            <a href="https://taurean.work" target="_blank">
+              Taurean Bryant
+            </a>
+            .
+          </p>
+        </footer>
       </main>
     </>
   );

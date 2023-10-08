@@ -9,10 +9,22 @@
 
   background-color: var(--card-bg);
   color: var(--card-fg);
-  grid-column: span 3;
   border-radius: var(--radii-default);
   padding: var(--space-s) 0 0 0;
   line-height: 1;
+  grid-column: span var(--grid-columns);
+
+  @media (min-width: 600) {
+    & {
+      grid-column: span 3;
+    }
+  }
+
+  @media (min-width: 600px) {
+    & {
+      grid-column: span 3;
+    }
+  }
 
   @media (prefers-color-scheme: dark) {
     & {
@@ -139,6 +151,7 @@
 
 .cardIsExpanded {
   grid-column: 1 / span 12;
+  margin-bottom: var(--space-l);
 }
 
 .cardTitle {
