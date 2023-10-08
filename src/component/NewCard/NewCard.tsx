@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import styles from "./NewCard.module.css";
 
 type NewCard = {
