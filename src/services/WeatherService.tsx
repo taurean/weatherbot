@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 const GEO_API_URL = `https://geocoding-api.open-meteo.com/v1/search?`;
 const WEATHER_API_URL = `https://api.open-meteo.com/v1/forecast?`;
+// The weather APIs come from open-meteo.com,
+// an easy to use free weather-api
 import { CardLocation } from "../App";
 
+// this function toggles if mock data is use,
+// switch to true to use mocked location & weather data
 const USE_MOCK = false;
 export interface LocationResponceItem {
   id: number;

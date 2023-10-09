@@ -21,6 +21,7 @@ export type CardLocation = {
   isExpanded: boolean;
 };
 
+// lines ~26-35 are used for using localStorage to initialize the app state
 const localStorageResponse = localStorage.getItem("useFahrenheit");
 let initialUnitPreference = localStorageResponse as UnitPreference;
 
@@ -33,6 +34,9 @@ if (localStorageResponse === null) {
 }
 
 function App() {
+  // Most of the app state is managed here
+  // the weather data is managed in `weatherCard`
+  // as that is refreshed when state changes / not stored
   const [locationList, setLocationList] =
     useState<CardLocation[]>(initialLocationList);
   const [unitPreference, setUnitPreference] = useState(initialUnitPreference);
