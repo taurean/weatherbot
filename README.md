@@ -15,6 +15,7 @@
 - The location and weather API data comes from [Open Meteo](https://open-meteo.com)
   - the mock data can be toggled when running locally by changing the `USE_MOCK` variable to `true` in the file [`src/services/WeatherService.tsx`](https://github.com/taurean/weatherbot/blob/main/src/services/WeatherService.tsx)
 - the icons come from [react-icons](https://react-icons.github.io/react-icons/), specifically the [weather icons](https://react-icons.github.io/react-icons/icons?name=wi) and [remix](https://react-icons.github.io/react-icons/icons?name=ri) packs
+- there's a small example of utilizing storybook with mocked location data, to access run storybook locally. You can also access via the [published version online](http://weather-sb.taurean.work/)
 
 ## Commands
 

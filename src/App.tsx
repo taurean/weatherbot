@@ -97,7 +97,7 @@ function App() {
         <span>
           <h1 className="rootHeadingTitle">Weatherbot</h1>
           <a
-            className="rootReadMeLink"
+            className="rootLink"
             href="https://github.com/taurean/weatherbot/blob/main/README.md"
             target="_blank"
           >
@@ -126,8 +126,27 @@ function App() {
         </section>
         <footer className="rootFooter">
           <p>
+            Feel free to view the{" "}
+            <a
+              className="rootLink"
+              href="http://github.com/taurean/weatherbot"
+              target="_blank"
+            >
+              source code
+            </a>{" "}
+            or{" "}
+            <a
+              className="rootLink"
+              href="http://weather-sb.taurean.work/"
+              target="_blank"
+            >
+              Storybook docs
+            </a>{" "}
+            as well.{" "}
+          </p>
+          <p>
             built by{" "}
-            <a href="https://taurean.work" target="_blank">
+            <a className="rootLink" href="https://taurean.work" target="_blank">
               Taurean Bryant
             </a>
             .
