@@ -20,22 +20,20 @@ export function NewCard(prop: NewCard) {
 
   return (
     <>
-      <div className={styles.newCard}>
-        <form onSubmit={handleOnSubmit}>
-          <label className={styles.newCardLabel} htmlFor="newCardInput">
-            New Location
-          </label>
-          <input
-            className={styles.newCardInput}
-            value={inputValue}
-            onChange={handleOnChange}
-            id="newCardInput"
-            type="text"
-            placeholder="New York…"
-          />
-          <button className={styles.newCardBtn}>Add Card</button>
-        </form>
-      </div>
+      <form className={styles.newCard} onSubmit={handleOnSubmit}>
+        <label className={styles.newCardLabel} htmlFor="newCardInput">
+          New Location
+        </label>
+        <input
+          className={styles.newCardInput}
+          value={inputValue}
+          onChange={handleOnChange}
+          id="newCardInput"
+          type="text"
+          placeholder="New York…"
+        />
+        <button className={styles.newCardBtn}>Add Card</button>
+      </form>
     </>
   );
 }
