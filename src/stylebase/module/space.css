@@ -38,4 +38,5 @@
   /* Custom pairs */
   /* Space s-l: 12px → 40px */
   --space-s-l: clamp(0.75rem, calc(0.25rem + 2.5vw), 2.5rem);
+  --space-s-3xs: clamp(0.3125rem, 0.875rem + -0.625vw, 0.75rem);
 }

@@ -7,6 +7,7 @@
   --card-bg-btn: var(--hue-neutral-700);
   --card-fg-btn: var(--hue-neutral-100);
 
+  align-self: start;
   background-color: var(--card-bg);
   background-image: linear-gradient(var(--card-bg-alt), var(--card-bg));
   color: var(--card-fg);
@@ -165,6 +166,8 @@
   opacity: 0.5;
   margin: var(--space-2xs) 0 0;
   text-align: center;
+  padding: 0 var(--space-2xs);
+  line-height: 1.4;
 }
 
 .cardIconWrapper {
@@ -272,6 +275,7 @@
   background-color: var(--card-bg-btn);
   color: var(--card-fg-btn);
   width: 100%;
+  padding: var(--space-s-3xs);
 
   .cardExpandToggleRightArrow {
     transition: transform 100ms ease-in-out;
