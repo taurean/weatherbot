@@ -8,6 +8,7 @@
   --card-fg-btn: var(--hue-neutral-100);
 
   background-color: var(--card-bg);
+  background-image: linear-gradient(var(--card-bg-alt), var(--card-bg));
   color: var(--card-fg);
   border-radius: var(--radii-default);
   padding: var(--space-s) 0 0 0;
@@ -156,6 +157,13 @@
 
 .cardTitle {
   font-size: var(--step-0);
+  text-align: center;
+}
+
+.cardLocation {
+  font-size: var(--step--1);
+  opacity: 0.5;
+  margin: var(--space-2xs) 0 0;
   text-align: center;
 }
 
