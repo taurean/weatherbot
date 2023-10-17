@@ -29,10 +29,10 @@
 
   @media (prefers-color-scheme: dark) {
     & {
-      --card-bg: var(--hue-neutral-800);
+      --card-bg: var(--hue-neutral-700);
       --card-fg: var(--hue-neutral-100);
       --card-accent: var(--hue-neutral-300);
-      --card-bg-alt: var(--hue-neutral-700);
+      --card-bg-alt: var(--hue-neutral-800);
       --card-fg-alt: var(--hue-neutral-200);
       --card-bg-btn: var(--hue-neutral-100);
       --card-fg-btn: var(--hue-neutral-700);
@@ -51,10 +51,10 @@
 
   @media (prefers-color-scheme: dark) {
     & {
-      --card-bg: var(--hue-lightBlue-800);
+      --card-bg: var(--hue-lightBlue-700);
       --card-fg: var(--hue-lightBlue-100);
       --card-accent: var(--hue-lightBlue-300);
-      --card-bg-alt: var(--hue-lightBlue-700);
+      --card-bg-alt: var(--hue-lightBlue-800);
       --card-fg-alt: var(--hue-lightBlue-200);
       --card-bg-btn: var(--hue-lightBlue-100);
       --card-fg-btn: var(--hue-lightBlue-700);
@@ -73,10 +73,10 @@
 
   @media (prefers-color-scheme: dark) {
     & {
-      --card-bg: var(--hue-blue-800);
+      --card-bg: var(--hue-blue-700);
       --card-fg: var(--hue-blue-100);
       --card-accent: var(--hue-blue-300);
-      --card-bg-alt: var(--hue-blue-700);
+      --card-bg-alt: var(--hue-blue-800);
       --card-fg-alt: var(--hue-blue-200);
       --card-bg-btn: var(--hue-blue-100);
       --card-fg-btn: var(--hue-blue-700);
@@ -95,10 +95,10 @@
 
   @media (prefers-color-scheme: dark) {
     & {
-      --card-bg: var(--hue-purple-800);
+      --card-bg: var(--hue-purple-700);
       --card-fg: var(--hue-purple-100);
       --card-accent: var(--hue-purple-300);
-      --card-bg-alt: var(--hue-purple-700);
+      --card-bg-alt: var(--hue-purple-800);
       --card-fg-alt: var(--hue-purple-200);
       --card-bg-btn: var(--hue-purple-100);
       --card-fg-btn: var(--hue-purple-700);
@@ -117,10 +117,10 @@
 
   @media (prefers-color-scheme: dark) {
     & {
-      --card-bg: var(--hue-zinc-800);
+      --card-bg: var(--hue-zinc-700);
       --card-fg: var(--hue-zinc-100);
       --card-accent: var(--hue-zinc-300);
-      --card-bg-alt: var(--hue-zinc-700);
+      --card-bg-alt: var(--hue-zinc-800);
       --card-fg-alt: var(--hue-zinc-200);
       --card-bg-btn: var(--hue-zinc-100);
       --card-fg-btn: var(--hue-zinc-700);
@@ -139,10 +139,10 @@
 
   @media (prefers-color-scheme: dark) {
     & {
-      --card-bg: var(--hue-fuschia-800);
+      --card-bg: var(--hue-fuschia-700);
       --card-fg: var(--hue-fuschia-100);
       --card-accent: var(--hue-fuschia-300);
-      --card-bg-alt: var(--hue-fuschia-700);
+      --card-bg-alt: var(--hue-fuschia-800);
       --card-fg-alt: var(--hue-fuschia-200);
       --card-bg-btn: var(--hue-fuschia-100);
       --card-fg-btn: var(--hue-fuschia-700);
@@ -312,7 +312,7 @@
   grid-template-columns: repeat(24, 1fr);
   flex-direction: row;
   margin: 0;
-  border-top: 1px solid var(--card-bg-alt);
+  /* border-top: 1px solid var(--card-bg-alt); */
   max-width: 100%;
   overflow-x: auto;
 }
