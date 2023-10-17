@@ -353,14 +353,10 @@ function ExpandedCard(prop: ExpandedProps) {
 export function WeatherCard(prop: WeatherCardProps) {
   const weatherData = useWeather(prop.location);
 
-  function formatRegion(locationName: string, region: string) {
-    return locationName == region ? undefined : region;
-  }
-
-  const region = formatRegion(
-    prop.location.locationName,
-    prop.location.locationRegion1
-  );
+  const region =
+    prop.location.locationName == prop.location.locationRegion1
+      ? undefined
+      : prop.location.locationRegion1;
 
   if (!weatherData) {
     return null;
