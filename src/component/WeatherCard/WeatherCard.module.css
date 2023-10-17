@@ -292,6 +292,7 @@
 
 .cardIsExpanded .cardFoot {
   padding: 0;
+  clip-path: margin-box;
   position: relative;
 }
 
@@ -316,7 +317,6 @@
   grid-template-columns: repeat(24, 1fr);
   flex-direction: row;
   margin: 0;
-  /* border-top: 1px solid var(--card-bg-alt); */
   max-width: 100%;
   overflow-x: auto;
 }

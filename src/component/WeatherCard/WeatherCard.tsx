@@ -328,23 +328,20 @@ function ExpandedCard(prop: ExpandedProps) {
               );
             })}
           </ol>
-          <div className={styles.cardBtnGroup}>
-            <button
-              onClick={handleClickCollapse}
-              className={styles.cardExpandToggle}
-            >
-              <RiArrowLeftLine />
-              collapse
-            </button>
-            <button
-              onClick={handleClickRemove}
-              className={styles.removeCardBtn}
-            >
-              <RiDeleteBinFill />
-              <span visually-hidden="true">Remove Location</span>
-            </button>
-          </div>
         </footer>
+        <div className={styles.cardBtnGroup}>
+          <button
+            onClick={handleClickCollapse}
+            className={styles.cardExpandToggle}
+          >
+            <RiArrowLeftLine />
+            collapse
+          </button>
+          <button onClick={handleClickRemove} className={styles.removeCardBtn}>
+            <RiDeleteBinFill />
+            <span visually-hidden="true">Remove Location</span>
+          </button>
+        </div>
       </div>
     </>
   );
