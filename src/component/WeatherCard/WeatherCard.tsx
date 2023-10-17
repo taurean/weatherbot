@@ -22,6 +22,10 @@ import { cToF } from "../../utils";
 
 type BaseCardProps = {
   locationId: number;
+  locationRegion1?: string;
+  locationRegion2?: string;
+  country?: string;
+  timezone?: string;
   locationName: string;
   tempCurrentCelsius: number;
   condition: number;
@@ -227,6 +231,12 @@ function CollapsedCard(prop: CollapsedProps) {
     <>
       <div className={`${styles.card} ${conditionClassName}`}>
         <h2 className={styles.cardTitle}>{prop.locationName}</h2>
+        <div className={styles.cardLocation}>
+          {prop.locationRegion1 == undefined
+            ? prop.locationRegion1
+            : prop.locationRegion1 + `, `}
+          {prop.country}
+        </div>
         <div className={styles.cardIconWrapper}>
           <div className={styles.icon}>{conditionIconName}</div>
         </div>
@@ -279,6 +289,12 @@ function ExpandedCard(prop: ExpandedProps) {
         className={`${styles.card} ${styles.cardIsExpanded} ${conditionClassName}`}
       >
         <h2 className={styles.cardTitle}>{prop.locationName}</h2>
+        <div className={styles.cardLocation}>
+          {prop.locationRegion1 == undefined
+            ? prop.locationRegion1
+            : prop.locationRegion1 + `, `}
+          {prop.country}
+        </div>
         <div className={styles.cardIconWrapper}>
           <div className={styles.icon}>{conditionIconName}</div>
         </div>
@@ -337,6 +353,15 @@ function ExpandedCard(prop: ExpandedProps) {
 export function WeatherCard(prop: WeatherCardProps) {
   const weatherData = useWeather(prop.location);
 
+  function formatRegion(locationName: string, region: string) {
+    return locationName == region ? undefined : region;
+  }
+
+  const region = formatRegion(
+    prop.location.locationName,
+    prop.location.locationRegion1
+  );
+
   if (!weatherData) {
     return null;
   }
@@ -347,6 +372,8 @@ export function WeatherCard(prop: WeatherCardProps) {
         <CollapsedCard
           locationId={prop.location.id}
           locationName={prop.location.locationName}
+          locationRegion1={region}
+          country={prop.location.country}
           tempCurrentCelsius={weatherData.hourly.temperature_2m[0]}
           tempHighCelsius={weatherData.daily.temperature_2m_max[0]}
           tempLowCelsius={weatherData.daily.temperature_2m_min[0]}
@@ -357,6 +384,8 @@ export function WeatherCard(prop: WeatherCardProps) {
         <ExpandedCard
           locationId={prop.location.id}
           locationName={prop.location.locationName}
+          locationRegion1={region}
+          country={prop.location.country}
           tempCurrentCelsius={weatherData.hourly.temperature_2m[0]}
           condition={weatherData.hourly.weathercode[0]}
           hourly={weatherData.hourly}
