@@ -83,8 +83,6 @@ function App() {
         isExpanded: false,
       };
 
-      console.log(currentLocation);
-
       const nextLocationList = [...locationList, currentLocation];
 
       setLocationList(nextLocationList);
